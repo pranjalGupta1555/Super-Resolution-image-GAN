@@ -6,3 +6,5 @@ This project aims to recover or restore high resolution image from low resolutio
 * Utils_model.py : Contains optimizer and content loss code
 * train.py   : Used for training the model
 * test.py    : To test the model
+* front_end.py : Contains front-end code
+* design.kv : Contains the design of each component in front-end
