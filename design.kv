@@ -1,0 +1,247 @@
+<Button>
+    background_color: 0/255,0/255,255/255,1
+
+<MenuScreen>:
+    Widget:
+        login: log_in
+        signup: sign_up
+        exit: exit
+        FloatLayout:
+            size: root.width,root.height
+            Image:
+                source: "srgan2.jpg"
+                size_hint: .8,0.45
+                pos_hint: {'top':1,'x':0.1}
+            Button:
+                id: log_in
+                text: "Log In"
+                font_size: 40
+                color:212/255,175/255,55/255,1
+                size_hint: 0.2,0.07
+                pos_hint: {'x':0.4,'y':0.39}
+                on_release:
+                    root.manager.current="login_screen"
+            Button:
+                id: sign_up
+                text: "Sign Up"
+                font_size: 40
+                color:212/255,175/255,55/255,1
+                size_hint: 0.2,0.07
+                pos_hint: {'x':0.4,'y':0.22}
+                on_release:
+                    #app.root.current="second"
+                    root.manager.current="signup_screen"
+                    root.manager.transition.direction="left"
+            Button:
+                id: exit
+                text: "Exit"
+                font_size: 40
+                color:212/255,175/255,55/255,1
+                size_hint: 0.2,0.07
+                pos_hint: {'x':0.4,'y':0.05}
+                on_release: root.exit_released()
+
+<SignupScreen>:
+    Widget:
+        name_of_user: name_of_user
+        email_id: email_id
+        username: username
+        passwd: passwd
+        GridLayout:
+            size: root.width,root.height
+            #padding:[50,50,50,50]
+            cols: 1
+            GridLayout:
+                cols: 2
+                Label:
+                    text: "NAME:"
+                    color: 15/255,66/255,230/255,1
+                    font_size: 20
+                TextInput:
+                    id: name_of_user
+                    multiline: False
+                    font_size: 20
+                Label:
+                    text: "EMAIL-ID:"
+                    color: 24/255,242/255,53/255,1
+                    font_size: 20
+                TextInput:
+                    id: email_id
+                    multiline: False
+                    font_size: 20
+                Label:
+                    text: "USERNAME:"
+                    color: 1,1,1,1
+                    font_size: 20
+                TextInput:
+                    id: username
+                    multiline: False
+                    font_size: 20
+                Label:
+                    text: "PASSWORD:"
+                    color: 1,0,0,1
+                    font_size: 20
+                TextInput:
+                    id: passwd
+                    multiline: False
+                    password: True
+                    font_size: 20
+            FloatLayout:
+                Button:
+                    size_hint: 0.4,0.2
+                    pos_hint: {'x':0.3,'y':0.4}
+                    text: "Submit"
+                    font_size: 20
+                    on_release:
+                        root.submit_for_signup_released()
+                Button:
+                    size_hint: 0.4, 0.2
+                    pos_hint: {'x':0.3, 'y':0.1}
+                    text: "Back"
+                    font_size: 20
+                    on_release:
+                        root.manager.current="menu"
+                        root.manager.transition.direction="right"
+
+
+<LoginScreen>:
+    Widget:
+        GridLayout:
+            size: root.width, root.height
+            cols: 1
+            padding: [20,20,20,20]
+            GridLayout:
+                cols: 2
+                Label:
+                    text: "ENTER YOUR USERNAME"
+                    font_size: 20
+                    color: 0,0,1,1
+                TextInput:
+                    id: login_username
+                    multiline: False
+                    font_size: 20
+                Label:
+                    text: "ENTER YOUR PASSWORD"
+                    font_size: 20
+                    color: 0,1,0,1
+                TextInput:
+                    id: login_password
+                    multiline: False
+                    password: True
+                    font_size: 20
+            FloatLayout:
+                Button:
+                    text: "Submit"
+                    size_hint: 0.4,0.2
+                    pos_hint: {'x':0.3,'y':0.4}
+                    font_size: 20
+                    on_release:
+                        root.submit_for_login_released()
+                Button:
+                    text: "Back"
+                    size_hint: 0.4, 0.2
+                    pos_hint: {'x':0.3,'y':0.1}
+                    font_size: 20
+                    on_release:
+                        root.manager.current="menu"
+                        root.manager.transition.direction="right"
+
+<WorkScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: root.selected(filechooser.selection)
+        Image:
+            id: image
+            source: ""
+        TextInput:
+            id: work_console
+            text: ""
+        FloatLayout:
+            Button:
+                text: "ENHANCE"
+                size_hint: 0.4, 0.2
+                pos_hint: {'x':0.3,'y':0.7}
+                font_size: 20
+                on_release:
+                    root.enhance()
+            Button:
+                text: "ENHANCE & CHECK"
+                size_hint: 0.4, 0.2
+                pos_hint: {'x':0.3,'y':0.4}
+                font_size: 20
+                on_release:
+                    root.manager.current="work_screen2"
+                    root.manager.transition.direction="left"
+            Button:
+                text: "BACK"
+                size_hint: 0.4, 0.2
+                pos_hint: {'x':0.3,'y':0.1}
+                font_size: 20
+                on_release:
+                    root.manager.current="menu"
+                    root.manager.transition.direction="right"
+
+<WorkScreen2>:
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser2
+            on_selection: root.enhance_check(filechooser2.selection)
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                id: image1
+                source: ""
+            Image:
+                id: image2
+                source: ""
+            Image:
+                id: image3
+                source: ""
+        FloatLayout:
+            Button:
+                text: "BACK"
+                size_hint: 0.4, 0.2
+                pos_hint: {'x':0.3,'y':0.1}
+                font_size: 20
+                on_release:
+                    root.manager.current="work_screen"
+                    root.manager.transition.direction="right"
+
+<Pop>:
+    Label:
+        id: popup_label
+        text: "Invalid username or password"
+        size_hint: 0.5,0.5
+        font_size: 16
+        color: 1,0,0,1
+        pos_hint: {'x':0.25, 'y':0.25}
+
+<Pop2>:
+    Label:
+        id: popup_label2
+        text: "Username already exists.\nKindly change the username and sign up again."
+        size_hint: 0.5,0.5
+        font_size: 16
+        color: 1,0,0,1
+        pos_hint: {'x':0.25, 'y':0.25}
+
+<Pop3>:
+    Label:
+        id: popup_label3
+        text: "Successfully signed up !!"
+        size_hint: 0.5,0.5
+        font_size: 16
+        color: 0,1,0,1
+        pos_hint: {'x':0.25, 'y':0.25}
+
+<Pop4>:
+    Label:
+        id: popup_label4
+        text: "Invalid email id !!"
+        size_hint: 0.5,0.5
+        font_size: 16
+        color: 1,0,0,1
+        pos_hint: {'x':0.25, 'y':0.25}
